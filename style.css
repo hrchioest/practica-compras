@@ -1,0 +1,44 @@
+h1 {
+  font-size: 28px;
+}
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin: 0 0 1em 0;
+  caption-side: top;
+  text-align: center;
+  width: 60%;
+}
+th {
+  text-align: center;
+  background-color: aliceblue;
+}
+th,
+td {
+  padding: 20px;
+  border-bottom: 1px solid;
+  font-size: 20px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.message {
+  margin: 30px;
+  background: #cdeacf;
+  padding: 20px;
+}
+
+button {
+  padding: 20px;
+  border-radius: 10px;
+  border-color: none;
+  border-width: 0;
+  background-color: #090977;
+  color: white;
+  font-size: 22px;
+}
