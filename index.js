@@ -1,3 +1,8 @@
+//CONSIGNA:Desarrollar un “carrito de compras” donde el usuario presione sobre cada producto
+// y el mismo quede guardado en el carrito. Luego, al oprimir el botón “Comprar”, calcular el
+// importe final y mostrar los productos comprados junto con el total a pagar. Solo puede
+// comprar una unidad de cada producto.
+
 var productos = [
   { nombre: "harina 000", precio: 35 },
   { nombre: "pan", precio: 25 },
@@ -21,19 +26,7 @@ var productos = [
   { nombre: "salsa de tomate", precio: 35 }
 ];
 
-// let carritoCompras = [];
-// const agregarCarrito = (event) => {
-//   if (event.target.checked) {
-//     carritoCompras.push();
-//   }
-// };
-let carritoCompras = [];
-const agregarCarrito = (event) => {
-  console.log(productos[event.target.value]);
-  let precioProd = productos[event.target.value];
-  carritoCompras.push(precioProd);
-};
-
+//Creando parte de la tabla tbody
 let tbody = document.querySelector("tbody");
 
 for (let i = 0; i < productos.length; i++) {
@@ -45,12 +38,12 @@ for (let i = 0; i < productos.length; i++) {
   let tdPrecio = document.createElement("td");
   tdPrecio.innerHTML = productos[i].precio;
 
+  //Para mi caso agregué check para similar agregar al carrito de compras:
   let tdCheck = document.createElement("td");
   let checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
   checkbox.setAttribute("value", [i]);
   tdCheck.appendChild(checkbox);
-  checkbox.addEventListener("change", agregarCarrito);
 
   tr.appendChild(tdNombre);
   tr.appendChild(tdPrecio);
@@ -59,15 +52,33 @@ for (let i = 0; i < productos.length; i++) {
   tbody.appendChild(tr);
 }
 
-const comprar = (event) => {
+//función comprar:
+const comprar = () => {
   let precioTotal = 0;
-  let productos = "";
+  let productosComprados = "";
 
-  for (let i = 0; i < carritoCompras.length; i++) {
-    precioTotal = precioTotal + carritoCompras[i].precio;
-    productos = productos + " " + carritoCompras[i].nombre;
-  }
-  console.log(precioTotal, productos);
+  //con la ayuda del atributo checked selecciono los chekeados y
+  //desabilito para que no se agregue mas de 1 producto:
+
+  let select = document.querySelectorAll("input");
+  select.forEach((item) => {
+    if (item.checked) {
+      item.disabled = true;
+      precioTotal = precioTotal + productos[item.value].precio;
+      productosComprados =
+        productosComprados + " " + productos[item.value].nombre;
+      console.log(productos[item.value].precio);
+    }
+  });
+  let mensaje = document.querySelector(".js-message");
+
+  mensaje.innerHTML =
+    "La compra de sus productos fueron : " +
+    productosComprados +
+    ". Precio total: " +
+    " $" +
+    precioTotal;
 };
+
 const button = document.querySelector("button");
 button.addEventListener("click", comprar);
